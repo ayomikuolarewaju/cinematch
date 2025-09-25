@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function Hero() {
   return (
-    <div className="flex flex-col items-center justify-center mx- w-full h-[300px]">
+    <div className="relative flex flex-col items-center justify-center mx- w-full h-[300px]">
       <div>
         <Image
           src={HeroImg}
@@ -13,7 +13,7 @@ function Hero() {
           className="w-[1000px] h-[400px] object-cover rounded-2xl"
         />
       </div>
-      <div className="absolute top-[230px] z-50 text-white w-[700px] mx-auto flex flex-col space-y-5 bg-gray-800/40 p-4">
+      <div className="absolute top-[10px] z-50 text-white w-[700px] mx-auto flex flex-col space-y-5 bg-gray-800/40 p-4">
         <h1 className="text-4xl text-center font-bold">
           Discover Your Next Favorite Movie
         </h1>

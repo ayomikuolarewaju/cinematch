@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Box from "@/components/MovieSearchBox";
 
 function Nav() {
   const menus = [
@@ -26,8 +27,8 @@ function Nav() {
         </div>
       </div>
 
-      <div className="rounded-md w-[200px]">
-        <input type="text" alt="search" />
+      <div>
+        <Box />
       </div>
       <div>
         <button className="p-3 text-white rounded-lg w-[100px] bg-red-800 mx-auto font-bold capitalise cursor-pointer">

@@ -89,6 +89,7 @@ function Movies() {
                 <p className="p-2 rounded-md bg-red-200 text-red-800 font-bold">
                   {dt[no]?.name}
                 </p>
+                <button onClick={()=>alert("added to my list")} className="p-2 rounded-md bg-red-800 text-white font-bold cursor-pointer">+List</button>
                 <p>
                   <FaStar color="red" />
                 </p>

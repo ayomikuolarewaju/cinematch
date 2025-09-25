@@ -4,9 +4,10 @@ import Movies from "@/components/Movies";
 
 function Home() {
   return (
-    <div> 
+    <div>
+      
       <Hero />
-      <Movies/>
+      <Movies />
     </div>
   );
 }
