@@ -59,7 +59,7 @@ export default function Movies() {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto ">
+    <div className="p-6 max-w-6xl mx-auto container px-4">
       <form onSubmit={onSearch} className="flex gap-2 mb-4">
         <input
           value={query}

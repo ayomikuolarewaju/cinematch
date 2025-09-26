@@ -13,3 +13,38 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model MovieData {
+  id        String   @id @unique @default(uuid())
+  title     String
+  year      Int
+  rating    Float
+  duration  Int
+  image_url String
+  discover  Boolean
+  trending  Boolean
+  director  String
+  cast      String[]
+  language  String
+  synopsis  String
+  createdAt DateTime @default(now())
+  MyList    MyList?  @relation(fields: [myListId], references: [id])
+  myListId  String?
+}
+
+model UserData {
+  id        String   @unique @default(uuid())
+  name      String
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+  MyList    MyList[]
+}
+
+model MyList {
+  id         String      @unique @default(uuid())
+  movies     MovieData[]
+  user       UserData    @relation(fields: [userDataId], references: [id])
+  createdAt  DateTime    @default(now())
+  userDataId String
+}
