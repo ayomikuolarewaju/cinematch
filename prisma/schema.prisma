@@ -17,6 +17,7 @@ datasource db {
 model MovieData {
   id        String   @id @unique @default(uuid())
   title     String
+  name      String
   year      Int
   rating    Float
   duration  Int

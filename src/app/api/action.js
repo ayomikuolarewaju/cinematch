@@ -1,85 +1,243 @@
-// "use server"
-// import { cookies } from 'next/headers'
-// import { redirect } from 'next/navigation'
-// import { prisma } from "@/api/data";
+export async function CreateMovie(prevState, formdata) {
+  try {
+    // Create an array of movie objects
+    const movies = [
+      {
+        title: "Edge of Valor",
+        year: 2023,
+        rating: 7.8,
+        duration: 130,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Action",
+        director: "John Carter",
+        cast: ["Mark Steel", "Anna Ryder", "Leo Burns"],
+        language: "English",
+        synopsis: "A retired soldier is forced back into action to save a city under siege.",
+      },
+      {
+        title: "Last Stand",
+        year: 2022,
+        rating: 6.9,
+        duration: 115,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: false,
+        name: "Action",
+        director: "Elena Shaw",
+        cast: ["Chris Miles", "Nina Lopez"],
+        language: "English",
+        synopsis: "When corrupt officials take over a town, a lone ranger makes his last stand.",
+      },
+      {
+        title: "Laugh Till Dawn",
+        year: 2021,
+        rating: 7.2,
+        duration: 105,
+        image_url: "../images/1600.png",
+        discover: false,
+        trending: true,
+        name: "Comedy",
+        director: "Sam O'Neil",
+        cast: ["David Kim", "Lucy Wong"],
+        language: "English",
+        synopsis: "Two friends find themselves in hilarious situations as they chase their dreams.",
+      },
+      {
+        title: "Office Clowns",
+        year: 2023,
+        rating: 6.5,
+        duration: 120,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: false,
+        name: "Comedy",
+        director: "Maria Gomez",
+        cast: ["Jake Thomas", "Sarah Green"],
+        language: "English",
+        synopsis: "A group of bored office workers turns their workplace into a comedy circus.",
+      },
+      {
+        title: "Silent Tears",
+        year: 2020,
+        rating: 8.1,
+        duration: 140,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: false,
+        name: "Drama",
+        director: "Oliver Reed",
+        cast: ["Clara Jones", "Michael Grant"],
+        language: "English",
+        synopsis: "A young woman struggles with family secrets and betrayal in a small town.",
+      },
+      {
+        title: "Broken Chains",
+        year: 2021,
+        rating: 7.5,
+        duration: 125,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Drama",
+        director: "Helen Morgan",
+        cast: ["Daniel Stone", "Rebecca Lee"],
+        language: "English",
+        synopsis: "A story of resilience and hope in the face of generational trauma.",
+      },
+      {
+        title: "Night of Shadows",
+        year: 2022,
+        rating: 6.8,
+        duration: 110,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Horror",
+        director: "Victor Lane",
+        cast: ["Sophia Ray", "Ethan Cole"],
+        language: "English",
+        synopsis: "A haunted town reveals its dark past as evil awakens.",
+      },
+      {
+        title: "Whispers in the Dark",
+        year: 2023,
+        rating: 7.0,
+        duration: 100,
+        image_url: "../images/1600.png",
+        discover: false,
+        trending: false,
+        name: "Horror",
+        director: "Nina Clarke",
+        cast: ["Liam Torres", "Eva Brooks"],
+        language: "English",
+        synopsis: "A family moves into a house where whispers never stop at night.",
+      },
+      {
+        title: "Love in Autumn",
+        year: 2023,
+        rating: 7.9,
+        duration: 145,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Romance",
+        director: "Amelia Brooks",
+        cast: ["Emma Hill", "Jack Ryan"],
+        language: "English",
+        synopsis: "A heartfelt romance blossoms against the backdrop of falling leaves."
+      },
+      {
+        title: "Forever Yours",
+        year: 2021,
+        rating: 6.8,
+        duration: 110,
+        image_url: "../images/1600.png",
+        discover: false,
+        trending: false,
+        name: "Romance",
+        director: "David Wilson",
+        cast: ["Sophie Reed", "Noah James"],
+        language: "English",
+        synopsis: "A love tested by distance and time finds a way to survive.",
+      },
+      {
+        title: "Galactic Dawn",
+        year: 2024,
+        rating: 8.3,
+        duration: 150,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Sci-Fi",
+        director: "Alex Carter",
+        cast: ["James Cole", "Maya Zhang"],
+        language: "English",
+        synopsis: "Humans fight for survival as a new galactic empire rises.",
+      },
+      {
+        title: "Neon Future",
+        year: 2022,
+        rating: 7.4,
+        duration: 120,
+        image_url: "../images/1600.png",
+        discover: false,
+        trending: false,
+        name: "Sci-Fi",
+        director: "Clara White",
+        cast: ["Aaron Blake", "Lila Carter"],
+        language: "English",
+        synopsis: "A hacker discovers the truth about humanity's cyber overlords.",
+      },
+      {
+        title: "Dreamscape Adventures",
+        year: 2021,
+        rating: 7.4,
+        duration: 100,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: false,
+        name: "Animation",
+        director: "Rachel Adams",
+        cast: ["Voice of Tom Lee", "Voice of Mia Clark"],
+        language: "English",
+        synopsis: "A group of kids travel into their dreams to fight nightmares.",
+      },
+      {
+        title: "Kingdom of Colors",
+        year: 2023,
+        rating: 8.0,
+        duration: 115,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: true,
+        name: "Animation",
+        director: "Oliver Nash",
+        cast: ["Voice of Lily Evans", "Voice of Ryan Moore"],
+        language: "English",
+        synopsis: "A magical world of colors is saved by two young heroes.",
+      },
+      {
+        title: "Oceans of Time",
+        year: 2019,
+        rating: 8.5,
+        duration: 90,
+        image_url: "../images/1600.png",
+        discover: true,
+        trending: false,
+        name: "Documentary",
+        director: "Laura Mitchell",
+        cast: ["Narrator: Morgan Freeman"],
+        language: "English",
+        synopsis: "Exploring the history and mysteries hidden beneath the oceans.",
+      },
+      {
+        title: "Earth's Fragile Balance",
+        year: 2022,
+        rating: 8.9,
+        duration: 105,
+        image_url: "../images/1600.png",
+        discover: false,
+        trending: true,
+        name: "Documentary",
+        director: "Henry Davis",
+        cast: ["Narrator: Cate Blanchett"],
+        language: "English",
+        synopsis: "A deep dive into climate change and its impact on global ecosystems.",
+      }
+    ];
 
-//   export type FormState = {
-//   error: SubErrors
-// }
-//   export type SubErrors = {
-//     name?:string;
-//     email?:string;
-//     location?:string;
-//   }
- 
- 
-//  export async function AskBot(prevState:FormState,formdata:FormData){
-    
-//     const name = formdata.get('name') as string
-//     const email = formdata.get('email') as string
-//     const location = formdata.get('location') as string
+    // Create movies one by one
+    const data = await prisma.MovieData.createMany({
+      data: movies,
+      skipDuplicates: true, // Optional: skip if title/year combination exists
+    });
 
-//     const client = new Groq({
-//       apiKey: process.env.GROQ_API_KEY, // This is the default and can be omitted
-//    });
-
-//     const error:SubErrors ={}
-
-//     if(!name){
-//         error.name = "Name is required"
-//     }
-//     if(!email){
-//       error.email = "email is required"
-//   }
-//   if(!location){
-//       error.location = "location is required"
-//   }
-//     if(Object.keys(error).length > 0){
-//        return{error}
-//     }
-  
-//      const res = await client.chat.completions.create({
-//         messages: [{ role: 'user', content: ` ${name}. ${location}. write a short business description, high density retail opportunities,      demographics analysis, foot traffic, and competitor insights of ${location}.`}],
-//         model: 'openai/gpt-oss-20b',
-//         });
-//         const data = await prisma.user.create({
-//           data: {
-//             name,
-//             email,
-//             location,
-//             message: res.choices[0].message.content
-//           }
-//         })
-         
-
-//     console.log('Form submitted successfully');
-
-//     const cookieStore = await cookies()
-    
-//     cookieStore.set('formSuccess', 'true', {
-//     httpOnly: true,
-//     path: '/',
-//     maxAge: 600, 
-//   });
-
-//      return redirect(`/success/${data.id}`)
-//   }
-
-
-//   export async function getUser(id:string){
-//     try {
-
-//       if (!id) return null;
-//       const userId =  id;
-//       const user = await prisma.user.findUnique({
-//         where: {
-//           id: userId,
-//         },
-//       });
-      
-//       return user;
-//     } catch (error) {
-//       console.error('Error fetching user:', error);
-//       return null;
-//     }
-//   }
+    console.log(`Successfully created ${data.count} movies`);
+    return { success: true, count: data.count };
+  } catch (error) {
+    console.error("Error creating movies:", error);
+    return { success: false, error: error.message };
+  }
+}
