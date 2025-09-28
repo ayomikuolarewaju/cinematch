@@ -35,9 +35,12 @@ function Nav() {
         <Box />
       </div>
       <div>
-        <button className="p-3 text-white rounded-lg w-[100px] bg-red-800 mx-auto font-bold capitalise cursor-pointer">
+        <Link
+          href="/login"
+          className="p-3 text-white rounded-lg w-[100px] bg-red-800 mx-auto font-bold capitalise cursor-pointer"
+        >
           Sign In
-        </button>
+        </Link>
       </div>
     </div>
   );

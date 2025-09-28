@@ -1,3 +1,8 @@
+"use server";
+import { redirect } from "next/navigation";
+import prisma from "./data";
+import { cookies } from "next/headers";
+
 export async function CreateMovie(prevState, formdata) {
   try {
     // Create an array of movie objects
@@ -14,7 +19,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "John Carter",
         cast: ["Mark Steel", "Anna Ryder", "Leo Burns"],
         language: "English",
-        synopsis: "A retired soldier is forced back into action to save a city under siege.",
+        synopsis:
+          "A retired soldier is forced back into action to save a city under siege.",
       },
       {
         title: "Last Stand",
@@ -28,7 +34,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Elena Shaw",
         cast: ["Chris Miles", "Nina Lopez"],
         language: "English",
-        synopsis: "When corrupt officials take over a town, a lone ranger makes his last stand.",
+        synopsis:
+          "When corrupt officials take over a town, a lone ranger makes his last stand.",
       },
       {
         title: "Laugh Till Dawn",
@@ -42,7 +49,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Sam O'Neil",
         cast: ["David Kim", "Lucy Wong"],
         language: "English",
-        synopsis: "Two friends find themselves in hilarious situations as they chase their dreams.",
+        synopsis:
+          "Two friends find themselves in hilarious situations as they chase their dreams.",
       },
       {
         title: "Office Clowns",
@@ -56,7 +64,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Maria Gomez",
         cast: ["Jake Thomas", "Sarah Green"],
         language: "English",
-        synopsis: "A group of bored office workers turns their workplace into a comedy circus.",
+        synopsis:
+          "A group of bored office workers turns their workplace into a comedy circus.",
       },
       {
         title: "Silent Tears",
@@ -70,7 +79,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Oliver Reed",
         cast: ["Clara Jones", "Michael Grant"],
         language: "English",
-        synopsis: "A young woman struggles with family secrets and betrayal in a small town.",
+        synopsis:
+          "A young woman struggles with family secrets and betrayal in a small town.",
       },
       {
         title: "Broken Chains",
@@ -84,7 +94,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Helen Morgan",
         cast: ["Daniel Stone", "Rebecca Lee"],
         language: "English",
-        synopsis: "A story of resilience and hope in the face of generational trauma.",
+        synopsis:
+          "A story of resilience and hope in the face of generational trauma.",
       },
       {
         title: "Night of Shadows",
@@ -112,7 +123,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Nina Clarke",
         cast: ["Liam Torres", "Eva Brooks"],
         language: "English",
-        synopsis: "A family moves into a house where whispers never stop at night.",
+        synopsis:
+          "A family moves into a house where whispers never stop at night.",
       },
       {
         title: "Love in Autumn",
@@ -126,7 +138,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Amelia Brooks",
         cast: ["Emma Hill", "Jack Ryan"],
         language: "English",
-        synopsis: "A heartfelt romance blossoms against the backdrop of falling leaves."
+        synopsis:
+          "A heartfelt romance blossoms against the backdrop of falling leaves.",
       },
       {
         title: "Forever Yours",
@@ -168,7 +181,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Clara White",
         cast: ["Aaron Blake", "Lila Carter"],
         language: "English",
-        synopsis: "A hacker discovers the truth about humanity's cyber overlords.",
+        synopsis:
+          "A hacker discovers the truth about humanity's cyber overlords.",
       },
       {
         title: "Dreamscape Adventures",
@@ -182,7 +196,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Rachel Adams",
         cast: ["Voice of Tom Lee", "Voice of Mia Clark"],
         language: "English",
-        synopsis: "A group of kids travel into their dreams to fight nightmares.",
+        synopsis:
+          "A group of kids travel into their dreams to fight nightmares.",
       },
       {
         title: "Kingdom of Colors",
@@ -210,7 +225,8 @@ export async function CreateMovie(prevState, formdata) {
         director: "Laura Mitchell",
         cast: ["Narrator: Morgan Freeman"],
         language: "English",
-        synopsis: "Exploring the history and mysteries hidden beneath the oceans.",
+        synopsis:
+          "Exploring the history and mysteries hidden beneath the oceans.",
       },
       {
         title: "Earth's Fragile Balance",
@@ -224,8 +240,9 @@ export async function CreateMovie(prevState, formdata) {
         director: "Henry Davis",
         cast: ["Narrator: Cate Blanchett"],
         language: "English",
-        synopsis: "A deep dive into climate change and its impact on global ecosystems.",
-      }
+        synopsis:
+          "A deep dive into climate change and its impact on global ecosystems.",
+      },
     ];
 
     // Create movies one by one
@@ -237,7 +254,36 @@ export async function CreateMovie(prevState, formdata) {
     console.log(`Successfully created ${data.count} movies`);
     return { success: true, count: data.count };
   } catch (error) {
-    console.error("Error creating movies:", error);
+    console.log("Error creating movies:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function Logger(FormState, formdata) {
+  try {
+    const email = formdata.get("email");
+    const password = formdata.get("password");
+
+    if (!email) {
+      FormState.error = "Email is required";
+    }
+    if (!password) {
+      FormState.error = "Password is required";
+    }
+    const res = await prisma.UserData?.findUnique({
+      where: { email: email },
+    });
+    if (!res) {
+      error = "User not found";
+    }
+    if (res.ok) {
+      console.log("Login successful");
+      const cookieStore = cookies();
+      cookieStore.set("user", JSON.stringify({ id: res.id, email: res.email }));
+      return redirect("/"); // Redirect to home page on successful login
+    }
+  } catch (error) {
+    console.log("Error logging in:", error);
     return { success: false, error: error.message };
   }
 }
